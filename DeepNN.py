@@ -8,8 +8,6 @@ np.random.seed(1)
 
 
 def initialize_parameters(n_x, n_h, n_y):
-   
-    
     np.random.seed(1)  
     W1 = np.random.randn(n_h,n_x)*0.01
     b1 = np.zeros((n_h,1)) 
@@ -26,12 +24,10 @@ def initialize_parameters_deep(layer_dims):
     np.random.seed(3)
     parameters = {}
     L = len(layer_dims)            
-
     for l in range(1, L):
         parameters['W' + str(l)] = np.random.randn(layer_dims[l],layer_dims[l-1])*0.01
         parameters['b' + str(l)] = np.zeros((layer_dims[l],1))
-        
-    return parameters
+     return parameters
 
 def linear_forward(A, W, b):
     Z = np.dot(W,A)+b
@@ -39,7 +35,6 @@ def linear_forward(A, W, b):
     return Z, cache
 
 def linear_activation_forward(A_prev, W, b, activation):
-   
     if activation == "sigmoid":
         Z, linear_cache = linear_forward(A_prev,W,b)
         A, activation_cache = sigmoid(Z)
@@ -80,18 +75,6 @@ def linear_backward(dZ, cache):
     db = np.sum(dZ,axis=1,keepdims=True)/m
     dA_prev = np.dot(W.T,dZ)
     return dA_prev, dW, db
-
-
-
-dZ, linear_cache = linear_backward_test_case()
-
-dA_prev, dW, db = linear_backward(dZ, linear_cache)
-print ("dA_prev = "+ str(dA_prev))
-print ("dW = " + str(dW))
-print ("db = " + str(db))
-
-
-
 
 def linear_activation_backward(dA, cache, activation):
 	linear_cache, activation_cache = cache
